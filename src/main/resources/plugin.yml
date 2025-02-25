@@ -1,0 +1,4 @@
+name: ThunderSpaceChecks
+version: '${version}'
+main: com.destroyer.thunderspacechecks.ThunderSpaceChecks
+api-version: '1.16'
