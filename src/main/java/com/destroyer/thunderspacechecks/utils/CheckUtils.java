@@ -5,6 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.boss.BossBar;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -56,7 +58,7 @@ public class CheckUtils {
     }
 
     public static void endCheck(ThunderSpaceChecks plugin, Player moderator, Player target) {
-        BossBar bossBar = checkedPlayers.remove(target.getUniqueId ());
+        BossBar bossBar = checkedPlayers.remove(target.getUniqueId());
         if (bossBar != null) bossBar.removeAll();
         checkStartTimes.remove(target.getUniqueId());
         moderatorCheck.remove(moderator.getUniqueId());
@@ -106,5 +108,6 @@ public class CheckUtils {
     }
 
     public static boolean isChecking(Player moderator) {
+        return moderatorCheck.containsKey(moderator.getUniqueId());
     }
 }
