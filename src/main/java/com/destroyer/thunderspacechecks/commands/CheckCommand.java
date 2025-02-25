@@ -1,6 +1,7 @@
 package com.destroyer.thunderspacechecks.commands;
 
 import com.destroyer.thunderspacechecks.ThunderSpaceChecks;
+import com.destroyer.thunderspacechecks.utils.CheckUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
