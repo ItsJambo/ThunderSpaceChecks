@@ -10,7 +10,6 @@ public final class ThunderSpaceChecks extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Load configuration
         saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(new PlayerEventListener(this), this);
         getCommand("check").setExecutor(new CheckCommand(this));

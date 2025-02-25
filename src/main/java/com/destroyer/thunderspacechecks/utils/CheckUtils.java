@@ -2,7 +2,6 @@ package com.destroyer.thunderspacechecks.utils;
 
 import com.destroyer.thunderspacechecks.ThunderSpaceChecks;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.boss.BossBar;
 import org.bukkit.boss.BarColor;
@@ -22,7 +21,7 @@ public class CheckUtils {
 
     public static void startCheck(ThunderSpaceChecks plugin, Player moderator, Player target) {
         BossBar bossBar = Bukkit.createBossBar(
-                ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("bossbar.title", "&cTime left: 5:00")),
+                GradientParser.parse(plugin.getConfig().getString("bossbar.title", "&cTime left: 5:00")),
                 BarColor.RED,
                 BarStyle.SOLID
         );
@@ -35,14 +34,14 @@ public class CheckUtils {
         target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20 * 300, 1));
         target.setGameMode(GameMode.ADVENTURE);
         target.sendTitle(
-                ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("screen.title", "&cCHECK")),
-                ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("screen.subtitle", "&6Check the instructions in the chat.")),
+                GradientParser.parse(plugin.getConfig().getString("screen.title", "&cCHECK")),
+                GradientParser.parse(plugin.getConfig().getString("screen.subtitle", "&6Check the instructions in the chat.")),
                 10, 100, 10
         );
-        target.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("chat.message", "&cCHECK\n&6You have been called for a cheat check...")));
+        target.sendMessage(GradientParser.parse(plugin.getConfig().getString("chat.message", "&cCHECK\n&6You have been called for a cheat check...")));
 
         Bukkit.broadcast(
-                ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("moderator.startMessage", "&e[MOD] Player &c%player% has been started to be checked.").replace("%player%", target.getName())),
+                GradientParser.parse(plugin.getConfig().getString("moderator.startMessage", "&e[MOD] Player &c%player% has been started to be checked.").replace("%player%", target.getName())),
                 "thunderspacechecks.check"
         );
 
@@ -65,15 +64,15 @@ public class CheckUtils {
 
         target.removePotionEffect(PotionEffectType.BLINDNESS);
         target.setGameMode(GameMode.SURVIVAL);
-        target.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("chat.finishMessage", "&aYou have passed the check!")));
+        target.sendMessage(GradientParser.parse(plugin.getConfig().getString("chat.finishMessage", "&aYou have passed the check!")));
 
-        moderator.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("moderator.finishMessage", "&aYou have finished checking &c%player%.").replace("%player%", target.getName())));
+        moderator.sendMessage(GradientParser.parse(plugin.getConfig().getString("moderator.finishMessage", "&aYou have finished checking &c%player%.").replace("%player%", target.getName())));
     }
 
     public static void autoBan(ThunderSpaceChecks plugin, Player target) {
         checkedPlayers.remove(target.getUniqueId());
         checkStartTimes.remove(target.getUniqueId());
-        target.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("ban.message", "&cYou did not respond to the check. You are banned for 30 days.")));
+        target.kickPlayer(GradientParser.parse(plugin.getConfig().getString("ban.message", "&cYou did not respond to the check. You are banned for 30 days.")));
         Bukkit.dispatchCommand(
                 Bukkit.getConsoleSender(),
                 plugin.getConfig().getString("ban.command", "ban %player% 30d Did not provide Discord.").replace("%player%", target.getName())
@@ -101,7 +100,7 @@ public class CheckUtils {
 
         Player moderator = Bukkit.getPlayer(moderatorId);
         if (moderator != null) {
-            String formattedMessage = ChatColor.RED + "CHECK | " + ChatColor.AQUA + "(" + player.getName() + "): " + ChatColor.RESET + message;
+            String formattedMessage = GradientParser.parse("&cCHECK | &b(" + player.getName() + "): &r" + message);
             player.sendMessage(formattedMessage);
             moderator.sendMessage(formattedMessage);
         }
